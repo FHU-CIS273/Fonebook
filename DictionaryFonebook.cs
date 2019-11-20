@@ -74,22 +74,52 @@ namespace Fonebook
 
         public List<Contact> Find(string query)
         {
-            throw new NotImplementedException();
+            var results = new List<Contact>();
+
+            // get first name matches
+            List<Contact> firstNameMatches = contactsByFirstName[query];
+            if (firstNameMatches != null)
+            {
+                results.AddRange(firstNameMatches);
+            }
+
+            // get last name matches
+            List<Contact> lastNameMatches = contactsByLastName[query];
+            if (lastNameMatches != null)
+            {
+                results.AddRange(lastNameMatches);
+            }
+
+            return results;
         }
 
         public Contact Find(int id)
         {
-            throw new NotImplementedException();
+            return contactsById[id];
         }
 
         public List<List<Contact>> FindAll(List<string> queries)
         {
-            throw new NotImplementedException();
+            var results = new List<List<Contact>>();
+
+            foreach(var query in queries)
+            {
+                results.Add(Find(query));
+            }
+
+            return results;
         }
 
         public List<Contact> FindAll(List<int> ids)
         {
-            throw new NotImplementedException();
+            var results = new List<Contact>();
+
+            foreach (var id in ids)
+            {
+                results.Add(Find(id));
+            }
+
+            return results;
         }
     }
 }
