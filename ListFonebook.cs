@@ -29,7 +29,8 @@ namespace Fonebook
 
         public List<Contact> Find(string query)
         {
-            var results = contacts.FindAll( c => c.FirstName.StartsWith(query) || c.LastName.StartsWith(query));
+            var results = contacts.FindAll(
+                c => c.FirstName.Equals(query) || c.LastName.Equals(query));
 
             return results;
         }
@@ -44,6 +45,30 @@ namespace Fonebook
             }
 
             return results;
+        }
+
+        public List<Contact> FindAll(List<int> ids)
+        {
+            var results = new List<Contact>();
+
+            foreach (var id in ids)
+            {
+                results.Add(Find(id));
+            }
+
+            return results;
+        }
+
+        public Contact Find(int id)
+        {
+            var result = contacts.Find(c => c.ID == id);
+
+            return result;
+        }
+
+        public void Clear()
+        {
+            contacts.Clear();
         }
 
         public int Size => contacts.Count;
