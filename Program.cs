@@ -3,31 +3,34 @@ using System.Collections.Generic;
 
 namespace Fonebook
 {
-    public enum DataStructureType
-    {
-        LinkedList,
-        List,
-        Dictionary,
-        AVLTreeMap,
-        RedBlackTreeMap,
-        
-    }
-
     public class Program
     {
         static void Main(string[] args)
         {
-            var contactsSmall = GetContactsFromFile("contacts_small_50.csv");
-            var queriesSmall = GetQueriesFromFile("queries_small_100.csv");
-            // ... 
+            var contactsSmall = GetContactsFromFile("../../../Data/contacts_small_50.csv");
+            var queriesSmall = GetQueriesFromFile("../../../Data/queries_small_100.csv");
+
+            var contactsMedium = GetContactsFromFile("../../../Data/contacts_medium_5000.csv");
+            var queriesMedium = GetQueriesFromFile("../../../Data/queries_medium_10000.csv");
+
+            var contactsLarge = GetContactsFromFile("../../../Data/contacts_large_34000.csv");
+            var queriesLarge = GetQueriesFromFile("../../../Data/queries_large_68000.csv");
+
+            /* List Fonebook */
             IFonebook listFonebook = new ListFonebook();
             CreateFonebook(listFonebook, contactsSmall);
             QueryFonebook(listFonebook, queriesSmall);
 
             listFonebook.Clear();
-            var contactsMedium = GetContactsFromFile("contacts_medium_5000.csv");
-            var queriesMedium = GetQueriesFromFile("queries_medium_10000.csv");
+            CreateFonebook(listFonebook, contactsMedium);
+            QueryFonebook(listFonebook, queriesMedium);
 
+            listFonebook.Clear();
+            CreateFonebook(listFonebook, contactsLarge);
+            QueryFonebook(listFonebook, queriesLarge);
+
+
+            /* Dictionary Fonebook */
             IFonebook dictionaryFonebook = new DictionaryFonebook();
             CreateFonebook(dictionaryFonebook, contactsSmall);
             QueryFonebook(dictionaryFonebook, queriesSmall);

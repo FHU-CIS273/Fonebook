@@ -50,8 +50,7 @@ namespace Fonebook
 
             // Add by Id
             contactsById[contact.ID] = contact;
-
-
+            
             Size++;
         }
 
