@@ -14,7 +14,6 @@ namespace Fonebook
             contactsByFirstName = new Dictionary<string, List<Contact>>();
             contactsByLastName = new Dictionary<string, List<Contact>>();
             contactsById = new Dictionary<int, Contact>();
-            Size = 0;
         }
 
         public int Size => contactsById.Count;
