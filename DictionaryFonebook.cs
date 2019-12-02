@@ -17,41 +17,42 @@ namespace Fonebook
             Size = 0;
         }
 
-        public int Size
-        {
-            get;set;
-        }
+        public int Size => contactsById.Count;
 
         public void Add(Contact contact)
         {
             // Add by first name
-            var firstNameMatches = contactsByFirstName[contact.FirstName];
-            if (firstNameMatches == null)
+            if (contactsByFirstName.ContainsKey(contact.FirstName))
             {
                 contactsByFirstName[contact.FirstName] = new List<Contact>();
                 contactsByFirstName[contact.FirstName].Add(contact);
             }
             else
             {
-                firstNameMatches.Add(contact);
+                contactsByFirstName[contact.FirstName].Add(contact);
             }
 
             // Add by last name
-            var lastNameMatches = contactsByLastName[contact.LastName];
-            if (lastNameMatches == null)
+            if (contactsByLastName.ContainsKey(contact.LastName))
             {
                 contactsByLastName[contact.LastName] = new List<Contact>();
                 contactsByLastName[contact.LastName].Add(contact);
             }
             else
             {
-                lastNameMatches.Add(contact);
+                contactsByLastName[contact.LastName].Add(contact);
             }
 
             // Add by Id
-            contactsById[contact.ID] = contact;
+            if (contactsById.ContainsKey(contact.ID))
+            {
+                throw new Exception("Contact IDs must be unique.");
+            }
+            else
+            {
+                contactsById[contact.ID] = contact;
+            }
             
-            Size++;
         }
 
         public IFonebook AddAll(List<Contact> contacts)
@@ -66,7 +67,6 @@ namespace Fonebook
 
         public void Clear()
         {
-            Size = 0;
             contactsByFirstName.Clear();
             contactsByLastName.Clear();
             contactsById.Clear();
@@ -77,17 +77,15 @@ namespace Fonebook
             var results = new List<Contact>();
 
             // get first name matches
-            List<Contact> firstNameMatches = contactsByFirstName[query];
-            if (firstNameMatches != null)
+            if (contactsByFirstName.ContainsKey(query))
             {
-                results.AddRange(firstNameMatches);
+                results.AddRange(contactsByFirstName[query]);
             }
-
+            
             // get last name matches
-            List<Contact> lastNameMatches = contactsByLastName[query];
-            if (lastNameMatches != null)
+            if (contactsByLastName.ContainsKey(query) )
             {
-                results.AddRange(lastNameMatches);
+                results.AddRange(contactsByLastName[query]);
             }
 
             return results;
