@@ -21,35 +21,27 @@ namespace Fonebook
         public void Add(Contact contact)
         {
             // Add by first name
-            if (contactsByFirstName.ContainsKey(contact.FirstName))
+            if (!contactsByFirstName.ContainsKey(contact.FirstName))
             {
-                contactsByFirstName[contact.FirstName].Add(contact);
+                contactsByFirstName[contact.FirstName] = new List<Contact>();  
             }
-            else
-            {
-                contactsByFirstName[contact.FirstName] = new List<Contact>();
-                contactsByFirstName[contact.FirstName].Add(contact);
-            }
+            contactsByFirstName[contact.FirstName].Add(contact);
 
             // Add by last name
-            if (contactsByLastName.ContainsKey(contact.LastName))
-            {
-                contactsByLastName[contact.LastName].Add(contact);
-            }
-            else
+            if (!contactsByLastName.ContainsKey(contact.LastName))
             {
                 contactsByLastName[contact.LastName] = new List<Contact>();
-                contactsByLastName[contact.LastName].Add(contact);
             }
+            contactsByLastName[contact.LastName].Add(contact);
 
             // Add by Id
-            if (contactsById.ContainsKey(contact.ID))
+            if (!contactsById.ContainsKey(contact.ID))
             {
-                throw new Exception("Contact IDs must be unique.");
+                contactsById[contact.ID] = contact; 
             }
             else
             {
-                contactsById[contact.ID] = contact;
+                throw new Exception("Contact IDs must be unique.");
             }
             
         }
