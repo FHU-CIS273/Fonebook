@@ -23,22 +23,22 @@ namespace Fonebook
             // Add by first name
             if (contactsByFirstName.ContainsKey(contact.FirstName))
             {
-                contactsByFirstName[contact.FirstName] = new List<Contact>();
                 contactsByFirstName[contact.FirstName].Add(contact);
             }
             else
             {
+                contactsByFirstName[contact.FirstName] = new List<Contact>();
                 contactsByFirstName[contact.FirstName].Add(contact);
             }
 
             // Add by last name
             if (contactsByLastName.ContainsKey(contact.LastName))
             {
-                contactsByLastName[contact.LastName] = new List<Contact>();
                 contactsByLastName[contact.LastName].Add(contact);
             }
             else
             {
+                contactsByLastName[contact.LastName] = new List<Contact>();
                 contactsByLastName[contact.LastName].Add(contact);
             }
 
